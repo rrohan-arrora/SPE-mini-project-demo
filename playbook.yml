@@ -1,0 +1,19 @@
+---
+- name: Deploy Docker Image to Container
+  hosts: all
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  tasks:
+    - name: Pull Docker Image
+      docker_image:
+        name: mehlasaab/spe_mini06
+        tag: latest
+        source: pull
+
+    - name: Create & Start Calculator Docker Container
+      docker_container:
+        name: spe_mini06
+        image: mehlasaab/spe_mini06
+        state: started
+        tty: yes
+        interactive: yes
